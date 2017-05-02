@@ -7,10 +7,6 @@ This project aims on designing and implementing an information system using rela
 ### Logical ERD model
 <p align="center"><img src="http://10yung.com/projects/ADB/ADB-Project2-erd.svg"></p>
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
 ## Tech stack
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
