@@ -8,8 +8,8 @@ This project aims on designing and implementing an information system using rela
 1. Two roles: Teacher& Student
 2. Use member ID (school ID) to login
 3. Could borrow classroom
-⋅⋅* Choose date and time
-⋅⋅* Update, delete the reservation
+  * Choose date and time
+  * Update, delete the reservation
 
 **Classroom**
 1. Offer the limit time for lending (from 9am to 9pm) and differ in vary classroom.
