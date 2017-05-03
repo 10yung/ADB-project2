@@ -11,7 +11,6 @@ class ClassroomRepo
             ->insert(
                 ['name' => $name, 'room_size' => $size]
             );
-
     }
 
     public static function deleteClassroom($classroomID){
@@ -33,6 +32,5 @@ class ClassroomRepo
         $classrom = DB::table('Classroom')
             ->where('roomID', '=', $classroomID)
             ->update(['name' => $name, 'room_size' => $size]);
-
     }
 }
