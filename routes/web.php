@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/memdashbaord', function () {
-    return view('members.memberDashboard');
-});
+Route::get('/memdashbaord/{mem_id}', 'RentRecordController@show');
 
 Route::get('/admindashbaord', function () {
     return view('admin.adminDashboard');

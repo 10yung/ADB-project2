@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="col-sm-6 col-xs-12">
+        <p>{{ $totalRentRecord }}</p>
         <div>
             <p>日期：</p>
         </div>

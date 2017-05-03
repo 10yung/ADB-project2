@@ -12,5 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class RentRecordRepo
 {
+    public static function getRentRecordbymemID($memID){
+        $rentrecord = DB::table('RentRecord')
+            ->where('memID', '=', $memID)
+            ->get();
 
+        return $rentrecord;
+    }
 }

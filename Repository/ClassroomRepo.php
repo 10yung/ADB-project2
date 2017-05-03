@@ -21,11 +21,11 @@ class ClassroomRepo
     }
 
     public static function getClassroomByID($classroomID){
-        $classrom = DB::table('Classroom')
+        $classroom = DB::table('Classroom')
             ->where('roomID', '=', $classroomID)
             ->get();
 
-        return $classrom;
+        return $classroom;
     }
 
     public static function updateClassroomByID($classroomID, $name, $size){
