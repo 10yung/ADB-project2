@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="col-sm-12 col-xs-12">
+
+        @include('partials._flashMessages')
+
         <form class="form-inline">
             <div class="form-group col-sm-3">
                 <label for="exampleInputName2">教室編號：</label>
@@ -37,6 +40,11 @@
 
         </form>
     </div>
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
 
     <p>{{ $totalRentRecord }}</p>
     <div class="col-xs-12 col-sm-12">
