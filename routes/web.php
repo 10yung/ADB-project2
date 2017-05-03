@@ -19,3 +19,13 @@ Route::get('/memdashbaord', function () {
     return view('members.memberDashboard');
 });
 
+Route::get('/admindashbaord', function () {
+    return view('admin.adminDashboard');
+});
+
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
+
+

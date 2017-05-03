@@ -29,17 +29,8 @@
     @include('partials._nav')
 
     <div class="container">
-        <div class="row">
-            {{-- side bar area --}}
-            <div class="col-sm-2 col-xs-12">
-                @include('partials.members._memSidebar')
-            </div>
-
-            {{-- main content --}}
-            <div class="col-sm-10 col-xs-12">
-                @yield('content')
-            </div>
-        </div>
+        {{-- main content --}}
+        @yield('content')
     </div>
 </body>
 </html>
