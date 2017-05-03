@@ -15,4 +15,10 @@ class RentRecordController extends Controller
 
         return view('members.memberDashboard',  compact('totalRentRecord'));
     }
+
+    public function create($mem_id){
+        $rendRecord = RentRecordRepo::createRentRecordbymemID($mem_id, 2);
+
+        return redirect('/memdashbaord/'.$mem_id)->with('message', 'State saved correctly!!!');
+    }
 }

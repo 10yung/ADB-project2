@@ -9,6 +9,7 @@
 namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class RentRecordRepo
 {
@@ -19,4 +20,12 @@ class RentRecordRepo
 
         return $rentrecord;
     }
+
+    public static function createRentRecordbymemID($memID, $roomID) {
+        DB::table('RentRecord')
+            ->insert(
+                ['periodID'=> 1,'roomID' => $roomID, 'Date' => Carbon::now()->format('Y-m-d H:i:s'), 'memID' => $memID]
+            );
+    }
+
 }

@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('/memdashbaord/{mem_id}', 'RentRecordController@show');
+Route::get('/memdashbaord/{mem_id}/create', 'RentRecordController@create');
+
 
 Route::get('/admindashbaord', function () {
     return view('admin.adminDashboard');
