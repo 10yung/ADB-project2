@@ -25,7 +25,7 @@ class ClassroomRepo
         $classrom = DB::table('Classroom')
             ->where('roomID', '=', $classroomID)
             ->get();
-        
+
         return $classrom;
     }
 

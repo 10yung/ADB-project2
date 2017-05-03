@@ -31,6 +31,7 @@ CREATE TABLE `Classroom` (
   `roomID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `status` char(11) NOT NULL DEFAULT '',
   `room_size` char(11) NOT NULL DEFAULT '',
+  `name` char(16) DEFAULT NULL,
   PRIMARY KEY (`roomID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
