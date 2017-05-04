@@ -30,7 +30,7 @@ class ClassroomRepo
     }
 
     public static function updateClassroomByID($classroomID, $name, $size){
-        $classrom = DB::table('Classroom')
+        DB::table('Classroom')
             ->where('roomID', '=', $classroomID)
             ->update(['name' => $name, 'room_size' => $size]);
 

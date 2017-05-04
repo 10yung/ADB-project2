@@ -10,22 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/memdashbaord', function () {
-    return view('members.memberDashboard');
+
+
+Route::group(['middleware' => ['member-auth']], function () {
+    Route::get('/memdashbaord', function () {
+        return view('members.memberDashboard');
+    });
 });
 
-Route::get('/admindashbaord', function () {
-    return view('admin.adminDashboard');
+Route::group(['middleware' => ['admin-auth']], function () {
+    Route::get('/admindashbaord', function () {
+        return view('admin.adminDashboard');
+    });
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
 
 
 

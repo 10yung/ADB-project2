@@ -14,4 +14,7 @@ use Illuminate\Support\Facades\DB;
 class DateOffRepo
 {
 
+    public static function addDateOff($adminID, $startTime, $endTime){
+
+    }
 }
