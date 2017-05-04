@@ -62,7 +62,6 @@
                     </thead>
                     <tbody>
 
-<<<<<<< Updated upstream
                     @foreach($totalRentRecord as $key => $totalRentRecord)
                         <tr>
                             <td scope="row">{{ $key+1 }}</td>
@@ -73,7 +72,7 @@
                             <td><button class="btn btn-danger" type="submit">取消預約</button></td>
                         </tr>
                     @endforeach
-=======
+
                     @if(isset($totalRentRecords))
                         @foreach($totalRentRecords as $key => $totalRentRecord)
                             <tr>
@@ -100,7 +99,6 @@
                         @endforeach
                     @endif
 
->>>>>>> Stashed changes
 
                     </tbody>
                 </table>

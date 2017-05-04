@@ -49,34 +49,34 @@ class RentRecordController extends Controller
 
         $classrommReservedStatus = ReservedClassroomRepo::checkReservedClassroom($roomID, $rentPeriodID, $rentDate);
         if($classrommReservedStatus == 'AVAILABLE'){
-<<<<<<< Updated upstream
+
             RentRecordRepo::createRentRecordbymemID($member->memID, $classroomID, $rentPeriodID, $rentDate);
             ReservedClassroomRepo::addReservedClassroom($classroomID, $rentPeriodID, $rentDate);
             session()->flash('success', '預約完成');
-=======
+
             RentRecordRepo::createRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate);
             ReservedClassroomRepo::addReservedClassroom($roomID, $rentPeriodID, $rentDate);
             session()->flash('success', '更新完成');
->>>>>>> Stashed changes
+
         }else {
             session()->flash('errors', '此時段已被預約');
         }
         return redirect('/memdashboard');
     }
 
-<<<<<<< Updated upstream
-    public function updateRentRecordbyDate() {
+    public function updateRentRecordbyDate()
+    {
 
         $updated = RentRecordRepo::updateRentRecordbyDate();
 
         if ($updated) {
             session()->flash('success', '更新完成');
-        }else {
+        } else {
             session()->flash('errors', '錯誤發生');
         }
 
         return redirect('/admindashboard');
-=======
+    }
     public function cancelReservation(){
         $request = Request::all();
 
@@ -92,7 +92,7 @@ class RentRecordController extends Controller
         RentRecordRepo::cancelReservation($member->memID, $roomID, $rentPeriodID, $rentDate);
 
         return redirect()->back();
->>>>>>> Stashed changes
+
     }
 
 
