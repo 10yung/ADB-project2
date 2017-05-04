@@ -1,11 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+    @include('partials._flashMessages')
 
     <div class="col-xs-12 col-sm-12 text-center">
         <form class="form-inline" method="POST" action="{{ url('/admindashboard/updaterentrecord') }}" >
