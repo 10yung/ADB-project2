@@ -17,16 +17,14 @@ Route::get('/', function () {
 });
 
 
-Route::get('/memdashbaord/{mem_id}', 'RentRecordController@show');
-Route::get('/memdashbaord/{mem_id}/create', 'RentRecordController@create');
+
 
 
 
 
 Route::group(['middleware' => ['member-auth']], function () {
-    Route::get('/memdashbaord', function () {
-        return view('members.memberDashboard');
-    });
+    Route::get('/memdashboard', 'RentRecordController@show');
+    Route::post('/memdashboard/create', 'RentRecordController@create');
 });
 
 Route::group(['middleware' => ['admin-auth']], function () {

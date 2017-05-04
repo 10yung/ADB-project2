@@ -5,32 +5,30 @@
 
         @include('partials._flashMessages')
 
-        <form class="form-inline">
+        <form class="form-inline" method="POST" action="{{ url('/memdashboard/create') }}" >
+            {{ csrf_field() }}
             <div class="form-group col-sm-3">
                 <label for="exampleInputName2">教室編號：</label>
-                <select class="form-control" id="sel1"> 
-                    <option>I1-111</option> 
-                    <option>I2-212</option> 
-                    <option>I3-313</option>
-                    <option>I1-414</option> 
+                <select class="form-control" id="sel1" name="rentClassroomID"> 
+                    @foreach($classroomList as $classroom)
+                        <option value="{{ $classroom->roomID }}">{{ $classroom->name }}</option>
+                    @endforeach
                 </select> 
             </div>
 
             <div class="form-group col-sm-5">
                 <label for="exampleInputName2">日期：</label>
                 <div class="input-group date">
-                    <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    <input type="text" class="form-control" name="rentDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
             </div>
 
             <div class="form-group col-sm-2">
                 <label for="exampleInputName2">節：</label>
-                <select class="form-control" id="sel1"> 
-                    <option>A</option> 
-                    <option>B</option> 
-                    <option>C</option>
-                    <option>D</option> 
-                    <option>E</option> 
+                <select class="form-control" id="sel1" name="rentPeriodID"> 
+                    @foreach($periodList as $period)
+                        <option value="{{ $period->periodID }}">{{ $period->startTime }} ~ {{ $period->endTime }}</option>
+                    @endforeach
                 </select> 
             </div>
 
@@ -47,7 +45,11 @@
     @endif
 
 
-
+    <p>
+        @if(isset($totalRentRecord))
+            {{ $totalRentRecord }}
+        @endif
+    </p>
 
     <div class="col-xs-12 col-sm-12">
         <div class="panel panel-primary" style="margin-top: 30px;">

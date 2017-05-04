@@ -33,4 +33,11 @@ class ClassroomRepo
             ->where('roomID', '=', $classroomID)
             ->update(['name' => $name, 'room_size' => $size]);
     }
+
+    public static function getAllClassroom(){
+        $classroomList = DB::table('Classroom')
+            ->get();
+
+        return $classroomList;
+    }
 }

@@ -48,7 +48,7 @@ class LoginController extends Controller
         $user = Auth::user();
 
         if($user->userType == 'Admin'){
-            $redirectPath = '/admindashbaord';
+            $redirectPath = '/admindashboard';
         }else {
             $redirectPath = '/memdashboard';
         }

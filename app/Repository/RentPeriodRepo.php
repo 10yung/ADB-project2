@@ -12,5 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class RentPeriodRepo
 {
+    public static function getAllPeriod(){
+        $periodList = DB::table('RentPeriod')
+            ->get();
 
+        return $periodList;
+    }
 }
