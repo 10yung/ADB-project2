@@ -44,13 +44,6 @@
         </div>
     @endif
 
-
-    <p>
-        @if(isset($totalRentRecord))
-            {{ $totalRentRecord }}
-        @endif
-    </p>
-
     <div class="col-xs-12 col-sm-12">
         <div class="panel panel-primary" style="margin-top: 30px;">
             <div class="panel-heading">租借紀錄</div>
