@@ -62,16 +62,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach($totalRentRecord as $key => $totalRentRecord)
-                        <tr>
-                            <td scope="row">{{ $key+1 }}</td>
-                            @foreach ($totalRentRecord as $value)
-                                <td>{{ $value }}</td>
-                            @endforeach
-                            
-                            <td><button class="btn btn-danger" type="submit">取消預約</button></td>
-                        </tr>
-                    @endforeach
+                    
 
                     @if(isset($totalRentRecords))
                         @foreach($totalRentRecords as $key => $totalRentRecord)
