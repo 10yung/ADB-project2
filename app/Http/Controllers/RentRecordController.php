@@ -19,6 +19,6 @@ class RentRecordController extends Controller
     public function create($mem_id){
         $rendRecord = RentRecordRepo::createRentRecordbymemID($mem_id, 2);
         session()->flash('success', '更新完成');
-        return redirect()->back();
+        return redirect('/memdashbaord');
     }
 }

@@ -46,7 +46,9 @@
         </div>
     @endif
 
-    <p>{{ $totalRentRecord }}</p>
+
+
+
     <div class="col-xs-12 col-sm-12">
         <div class="panel panel-primary" style="margin-top: 30px;">
             <div class="panel-heading">租借紀錄</div>
@@ -56,26 +58,25 @@
                     <tr>
                         <th></th>
                         <th>日期</th>
-                        <th>第幾節/時間</th>
                         <th>教室編號</th>
+                        <th>起始時間</th>
+                        <th>結束時間</th>
                         <th>刪除</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>1234</td>
-                        <td><button class="btn btn-danger" type="submit">刪除</button></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>1234</td>
-                        <td><button class="btn btn-danger" type="submit">刪除</button></td>
-                    </tr>
+
+                    @foreach($totalRentRecord as $key => $totalRentRecord)
+                        <tr>
+                            <td scope="row">{{ $key }}</td>
+                            @foreach ($totalRentRecord as $value)
+                                <td>{{ $value }}</td>
+                            @endforeach
+                            
+                            <td><button class="btn btn-danger" type="submit">刪除</button></td>
+                        </tr>
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>
