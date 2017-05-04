@@ -24,8 +24,8 @@ class RentRecordController extends Controller
         $classroomList = ClassroomRepo::getAllClassroom();
         $periodList = RentPeriodRepo::getAllPeriod();
 
-        $totalRentRecord = RentRecordRepo::getRentRecordbymemID($member->memID);
-        return view('members.memberDashboard',  compact('totalRentRecord','classroomList', 'periodList'));
+        $totalRentRecords = RentRecordRepo::getRentRecordbymemID($member->memID);
+        return view('members.memberDashboard',  compact('totalRentRecords','classroomList', 'periodList'));
     }
 
     public function adminShow(){
@@ -38,26 +38,33 @@ class RentRecordController extends Controller
     }
 
     public function create(){
+        $request = Request::all();
+
         $user = Auth::user();
         $member = MemberRepo::getMemberByUserID($user->id);
 
-        $request = Request::all();
-
         $rentDate = $request['rentDate'];
-        $classroomID = $request['rentClassroomID'];
+        $roomID = $request['rentRoomID'];
         $rentPeriodID = $request['rentPeriodID'];
 
-        $classrommReservedStatus = ReservedClassroomRepo::checkReservedClassroom($classroomID, $rentPeriodID, $rentDate);
+        $classrommReservedStatus = ReservedClassroomRepo::checkReservedClassroom($roomID, $rentPeriodID, $rentDate);
         if($classrommReservedStatus == 'AVAILABLE'){
+<<<<<<< Updated upstream
             RentRecordRepo::createRentRecordbymemID($member->memID, $classroomID, $rentPeriodID, $rentDate);
             ReservedClassroomRepo::addReservedClassroom($classroomID, $rentPeriodID, $rentDate);
             session()->flash('success', '預約完成');
+=======
+            RentRecordRepo::createRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate);
+            ReservedClassroomRepo::addReservedClassroom($roomID, $rentPeriodID, $rentDate);
+            session()->flash('success', '更新完成');
+>>>>>>> Stashed changes
         }else {
             session()->flash('errors', '此時段已被預約');
         }
         return redirect('/memdashboard');
     }
 
+<<<<<<< Updated upstream
     public function updateRentRecordbyDate() {
 
         $updated = RentRecordRepo::updateRentRecordbyDate();
@@ -69,6 +76,23 @@ class RentRecordController extends Controller
         }
 
         return redirect('/admindashboard');
+=======
+    public function cancelReservation(){
+        $request = Request::all();
+
+        $user = Auth::user();
+        $member = MemberRepo::getMemberByUserID($user->id);
+
+
+        $rentDate = $request['rentDate'];
+        $roomID = $request['rentRoomID'];
+        $rentPeriodID = $request['rentPeriodID'];
+
+        ReservedClassroomRepo::deleteReservedClassroom($roomID, $rentPeriodID, $rentDate);
+        RentRecordRepo::cancelReservation($member->memID, $roomID, $rentPeriodID, $rentDate);
+
+        return redirect()->back();
+>>>>>>> Stashed changes
     }
 
 

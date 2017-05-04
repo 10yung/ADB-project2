@@ -13,22 +13,22 @@ use Illuminate\Support\Facades\DB;
 
 class ReservedClassroomRepo
 {
-    public static function addReservedClassroom($classroomID, $periodID, $date){
+    public static function addReservedClassroom($roomID, $periodID, $date){
 
         $date = Carbon::parse($date)->toDateString();
         DB::table('ReservedClassroom')
             ->insert([
-                'roomID' => $classroomID,
+                'roomID' => $roomID,
                 'periodID' => $periodID,
                 'date' => $date
             ]);
     }
 
-    public static function checkReservedClassroom($classroomID, $periodID, $date){
+    public static function checkReservedClassroom($roomID, $periodID, $date){
 
         $date = Carbon::parse($date)->toDateString();
         $classroomStatus = DB::table('ReservedClassroom')
-            ->where('roomID', '=', $classroomID)
+            ->where('roomID', '=', $roomID)
             ->where('periodID', '=', $periodID)
             ->where('date', '=', $date)
             ->first();
@@ -40,5 +40,14 @@ class ReservedClassroomRepo
         }
 
         return $status;
+    }
+
+    public static function deleteReservedClassroom($roomID, $periodID, $date){
+        $date = Carbon::parse($date)->toDateString();
+        DB::table('ReservedClassroom')
+            ->where('roomID', '=', $roomID)
+            ->where('periodID', '=', $periodID)
+            ->where('date', '=', $date)
+            ->delete();
     }
 }

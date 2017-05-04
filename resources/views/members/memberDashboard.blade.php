@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="col-sm-12 col-xs-12">
+    <div class="col-sm-12 col-xs-12" style="margin-top: 30px">
 
         @include('partials._flashMessages')
 
@@ -9,7 +9,7 @@
             {{ csrf_field() }}
             <div class="form-group col-sm-3">
                 <label for="exampleInputName2">教室編號：</label>
-                <select class="form-control" id="sel1" name="rentClassroomID"> 
+                <select class="form-control" id="sel1" name="rentRoomID"> 
                     @foreach($classroomList as $classroom)
                         <option value="{{ $classroom->roomID }}">{{ $classroom->name }}</option>
                     @endforeach
@@ -56,11 +56,13 @@
                         <th>教室編號</th>
                         <th>起始時間</th>
                         <th>結束時間</th>
-                        <th>刪除</th>
+                        <th>狀態</th>
+                        <th>取消預約</th>
                     </tr>
                     </thead>
                     <tbody>
 
+<<<<<<< Updated upstream
                     @foreach($totalRentRecord as $key => $totalRentRecord)
                         <tr>
                             <td scope="row">{{ $key+1 }}</td>
@@ -71,6 +73,34 @@
                             <td><button class="btn btn-danger" type="submit">取消預約</button></td>
                         </tr>
                     @endforeach
+=======
+                    @if(isset($totalRentRecords))
+                        @foreach($totalRentRecords as $key => $totalRentRecord)
+                            <tr>
+                                <td scope="row">{{ ++$key }}</td>
+
+                                <td>{{ $totalRentRecord->Date }}</td>
+                                <td>{{ $totalRentRecord->name }}</td>
+                                <td>{{ $totalRentRecord->startTime }}</td>
+                                <td>{{ $totalRentRecord->endTime }}</td>
+                                <td>{{ $totalRentRecord->status }}</td>
+                                <td>
+                                @if($totalRentRecord->status == '預約中')
+                                <form method="POST" action="{{ url('/memdashboard/cancel') }}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="rentDate" value="{{ $totalRentRecord->Date }}">
+                                    <input type="hidden" name="rentRoomID" value="{{ $totalRentRecord->roomID }}">
+                                    <input type="hidden" name="rentPeriodID" value="{{ $totalRentRecord->periodID }}">
+                                    <button class="btn btn-danger" type="submit">取消預約</button>
+                                </form>
+                                @endif
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
+
+>>>>>>> Stashed changes
 
                     </tbody>
                 </table>

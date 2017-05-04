@@ -15,7 +15,7 @@ class RentRecordRepo
 {
     public static function getRentRecordbymemID($memID){
         $rentrecord = DB::table('v_totalrentrecord')
-           ->select('Date', 'name', 'startTime', 'endTime')
+           ->select('Date', 'name', 'startTime', 'endTime', 'roomID', 'periodID', 'status')
             ->where('memID', '=', $memID)
             ->get()
             ->reverse();
@@ -27,7 +27,19 @@ class RentRecordRepo
         $date = Carbon::parse($date)->toDateString();
         DB::table('RentRecord')
             ->insert(
-                ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID]
+                ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+            );
+    }
+
+    public static function cancelReservation($memID, $roomID, $periodID, $date){
+        $date = Carbon::parse($date)->toDateString();
+        DB::table('RentRecord')
+            ->where('memID', '=', $memID)
+            ->where('roomID', '=', $roomID)
+            ->where('periodID', '=', $periodID)
+            ->where('date', '=', $date)
+            ->update(
+                ['status' => '已取消']
             );
     }
 
