@@ -17,8 +17,8 @@ class RentRecordRepo
         $rentrecord = DB::table('v_totalrentrecord')
            ->select('Date', 'name', 'startTime', 'endTime')
             ->where('memID', '=', $memID)
-            ->orderBy('Date','dec')
-            ->get();
+            ->get()
+            ->reverse();
 
         return $rentrecord;
     }
