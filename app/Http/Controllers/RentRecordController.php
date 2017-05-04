@@ -48,4 +48,6 @@ class RentRecordController extends Controller
         }
         return redirect('/memdashboard');
     }
+
+
 }

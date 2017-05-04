@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17-0ubuntu0.16.04.2)
 # Database: adb-project
-# Generation Time: 2017-05-04 08:12:53 +0000
+# Generation Time: 2017-05-04 08:23:28 +0000
 # ************************************************************
 
 
@@ -311,7 +311,7 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` (`id`, `name`, `account`, `password`, `userType`, `remember_token`, `created_at`, `updated_at`)
 VALUES
 	(1,'admin','admin','$2y$10$uGLNWLQNXk//u4rpZgfFX.Vcmf2uCUk76CHnY0UNfxEfUBFjfGavS','Admin','XTf29c920uQxNFIBF2YmTxhcbJct5IkprgYI8mEhlBOLdTAyMjuaDWkKko68',NULL,NULL),
-	(2,'member','member','$2y$10$VE/AcUxsJ/92mfT.X6Ll/e51t3XBpq0/hdIIzUzb0fceykSCFok7W','Member','svKjpibXwdLBMTPGnJjqbkp3JTmPoWWjqFdgcO5MhQCLbod6RNG6fUqhEqeQ',NULL,NULL);
+	(2,'member','member','$2y$10$VE/AcUxsJ/92mfT.X6Ll/e51t3XBpq0/hdIIzUzb0fceykSCFok7W','Member','DDJOROaB81YiXUApe6NmMNMmIKONHpzswZRXGeGdofZfqFYD45MS5H4XGzk4',NULL,NULL);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
