@@ -28,7 +28,7 @@ Route::group(['middleware' => ['member-auth']], function () {
 });
 
 Route::group(['middleware' => ['admin-auth']], function () {
-    Route::get('/admindashbaord', function () {
+    Route::get('/admindashboard', function () {
         return view('admin.adminDashboard');
     });
 });

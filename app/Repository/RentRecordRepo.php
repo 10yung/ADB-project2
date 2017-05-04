@@ -31,4 +31,13 @@ class RentRecordRepo
             );
     }
 
+    public static function updateRentRecordbyDate($memID, $roomID, $periodID, $date) {
+        $date = Carbon::parse($date)->toDateString();
+
+        $mytime = Carbon\Carbon::now();
+
+        DB::table('RentRecord')
+            ->where('Date', '<', $mytime)
+            ->update(['status' => '已過期']);
+    }
 }

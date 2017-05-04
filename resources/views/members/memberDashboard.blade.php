@@ -68,7 +68,7 @@
                                 <td>{{ $value }}</td>
                             @endforeach
                             
-                            <td><button class="btn btn-danger" type="submit">刪除</button></td>
+                            <td><button class="btn btn-danger" type="submit">取消預約</button></td>
                         </tr>
                     @endforeach
 

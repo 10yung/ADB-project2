@@ -20,9 +20,9 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             $user = Auth::user();
             if($user->userType == 'Admin'){
-                return redirect('/admindashbaord');
+                return redirect('/admindashboard');
             }else {
-                return redirect('/memdashbaord');
+                return redirect('/memdashboard');
             }
         }
 
