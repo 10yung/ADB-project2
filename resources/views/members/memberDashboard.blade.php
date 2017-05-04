@@ -63,7 +63,7 @@
 
                     @foreach($totalRentRecord as $key => $totalRentRecord)
                         <tr>
-                            <td scope="row">{{ $key }}</td>
+                            <td scope="row">{{ $key+1 }}</td>
                             @foreach ($totalRentRecord as $value)
                                 <td>{{ $value }}</td>
                             @endforeach
@@ -79,6 +79,9 @@
     </div>
     <script>
         $('.input-group.date').datepicker({
+        });
+        $('#datetimepicker').datetimepicker({
+            format: 'DD/MM/YYYY'
         });
     </script>
 @endsection

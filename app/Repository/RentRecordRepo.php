@@ -14,11 +14,10 @@ use Carbon\Carbon;
 class RentRecordRepo
 {
     public static function getRentRecordbymemID($memID){
-        $rentrecord = DB::table('RentRecord')
-            ->join('Classroom', 'RentRecord.roomID', '=', 'Classroom.roomID')
-            ->join('RentPeriod', 'RentRecord.periodID', '=', 'RentPeriod.periodID')
-            ->select('Date', 'Classroom.name', 'RentPeriod.startTime', 'RentPeriod.endTime')
+        $rentrecord = DB::table('v_totalrentrecord')
+           ->select('Date', 'name', 'startTime', 'endTime')
             ->where('memID', '=', $memID)
+            ->orderBy('Date','dec')
             ->get();
 
         return $rentrecord;
@@ -28,7 +27,7 @@ class RentRecordRepo
         $rentDate = Carbon::parse($date)->toDateString();
         DB::table('RentRecord')
             ->insert(
-                ['periodID'=> 1,'roomID' => $roomID, 'Date' => $rentDate, 'periodID' => $periodID,'memID' => $memID]
+                ['roomID' => $roomID, 'Date' => $rentDate, 'periodID' => $periodID,'memID' => $memID]
             );
     }
 
