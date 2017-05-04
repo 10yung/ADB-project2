@@ -9,7 +9,7 @@
 namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+use Carbon;
 
 class RentRecordRepo
 {
@@ -31,13 +31,23 @@ class RentRecordRepo
             );
     }
 
-    public static function updateRentRecordbyDate($memID, $roomID, $periodID, $date) {
-        $date = Carbon::parse($date)->toDateString();
+    public static function updateRentRecordbyDate() {
 
         $mytime = Carbon\Carbon::now();
 
         DB::table('RentRecord')
             ->where('Date', '<', $mytime)
             ->update(['status' => '已過期']);
+
+        return true;
+    }
+
+    public static function getAllRentRecord() {
+        $allrentrecord = DB::table('v_admintotalrentrecord')
+            ->select('memberName', 'Date', 'classroomName','startTime', 'endTime', 'status')
+            ->get()
+            ->reverse();
+
+        return $allrentrecord;
     }
 }

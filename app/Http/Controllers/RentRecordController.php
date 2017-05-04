@@ -28,6 +28,15 @@ class RentRecordController extends Controller
         return view('members.memberDashboard',  compact('totalRentRecord','classroomList', 'periodList'));
     }
 
+    public function adminShow(){
+
+        $user = Auth::user();
+        $admin = MemberRepo::getAdminByUserID($user->id);
+        $totalRentRecord = RentRecordRepo::getAllRentRecord();
+
+        return view('admin.adminDashboard',  compact('totalRentRecord', 'admin'));
+    }
+
     public function create(){
         $user = Auth::user();
         $member = MemberRepo::getMemberByUserID($user->id);
@@ -42,11 +51,24 @@ class RentRecordController extends Controller
         if($classrommReservedStatus == 'AVAILABLE'){
             RentRecordRepo::createRentRecordbymemID($member->memID, $classroomID, $rentPeriodID, $rentDate);
             ReservedClassroomRepo::addReservedClassroom($classroomID, $rentPeriodID, $rentDate);
-            session()->flash('success', '更新完成');
+            session()->flash('success', '預約完成');
         }else {
             session()->flash('errors', '此時段已被預約');
         }
         return redirect('/memdashboard');
+    }
+
+    public function updateRentRecordbyDate() {
+
+        $updated = RentRecordRepo::updateRentRecordbyDate();
+
+        if ($updated) {
+            session()->flash('success', '更新完成');
+        }else {
+            session()->flash('errors', '錯誤發生');
+        }
+
+        return redirect('/admindashboard');
     }
 
 

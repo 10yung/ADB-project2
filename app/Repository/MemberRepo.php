@@ -12,4 +12,11 @@ class MemberRepo
             ->first();
         return $member;
     }
+
+    public static function getAdminByUserID($userID){
+        $admin = DB::table('Admin')
+            ->where('userID', '=',$userID)
+            ->first();
+        return $admin;
+    }
 }

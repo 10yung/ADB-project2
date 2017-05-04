@@ -28,9 +28,8 @@ Route::group(['middleware' => ['member-auth']], function () {
 });
 
 Route::group(['middleware' => ['admin-auth']], function () {
-    Route::get('/admindashboard', function () {
-        return view('admin.adminDashboard');
-    });
+    Route::get('/admindashboard', 'RentRecordController@adminShow');
+    Route::post('/admindashboard/updaterentrecord', 'RentRecordController@updateRentRecordbyDate');
 });
 
 
