@@ -16,15 +16,15 @@
                 </select> 
             </div>
 
-            <div class="form-group col-sm-4">
+            <div class="form-group col-sm-5">
                 <label for="exampleInputName2">日期：</label>
                 <div class="input-group date">
                     <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                 </div>
             </div>
 
-            <div class="form-group col-sm-3">
-                <label for="exampleInputName2">第幾節：</label>
+            <div class="form-group col-sm-2">
+                <label for="exampleInputName2">節：</label>
                 <select class="form-control" id="sel1"> 
                     <option>A</option> 
                     <option>B</option> 
