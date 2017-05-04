@@ -15,6 +15,9 @@ class RentRecordRepo
 {
     public static function getRentRecordbymemID($memID){
         $rentrecord = DB::table('RentRecord')
+            ->join('Classroom', 'RentRecord.roomID', '=', 'Classroom.roomID')
+            ->join('RentPeriod', 'RentRecord.periodID', '=', 'RentPeriod.periodID')
+            ->select('Date', 'Classroom.name', 'RentPeriod.startTime', 'RentPeriod.endTime')
             ->where('memID', '=', $memID)
             ->get();
 
@@ -27,7 +30,5 @@ class RentRecordRepo
                 ['periodID'=> 1,'roomID' => $roomID, 'Date' => Carbon::now()->format('Y-m-d H:i:s'), 'memID' => $memID]
             );
     }
-
-
 
 }
