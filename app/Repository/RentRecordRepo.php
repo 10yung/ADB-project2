@@ -24,10 +24,10 @@ class RentRecordRepo
     }
 
     public static function createRentRecordbymemID($memID, $roomID, $periodID, $date) {
-        $rentDate = Carbon::parse($date)->toDateString();
+        $date = Carbon::parse($date)->toDateString();
         DB::table('RentRecord')
             ->insert(
-                ['roomID' => $roomID, 'Date' => $rentDate, 'periodID' => $periodID,'memID' => $memID]
+                ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID]
             );
     }
 

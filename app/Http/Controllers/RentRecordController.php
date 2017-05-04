@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Repository\ClassroomRepo;
+use App\Repository\ClassroomStatusRepo;
 use App\Repository\MemberRepo;
 use App\Repository\RentPeriodRepo;
+use App\Repository\ReservedClassroomRepo;
 use Illuminate\Support\Facades\Request;
 use App\Repository\RentRecordRepo;
 use Illuminate\Support\Facades\Auth;
@@ -36,11 +38,14 @@ class RentRecordController extends Controller
         $classroomID = $request['rentClassroomID'];
         $rentPeriodID = $request['rentPeriodID'];
 
-        RentRecordRepo::createRentRecordbymemID($member->memID, $classroomID, $rentPeriodID, $rentDate);
-
-        session()->flash('success', '更新完成');
-
-
+        $classrommReservedStatus = ReservedClassroomRepo::checkReservedClassroom($classroomID, $rentPeriodID, $rentDate);
+        if($classrommReservedStatus == 'AVAILABLE'){
+            RentRecordRepo::createRentRecordbymemID($member->memID, $classroomID, $rentPeriodID, $rentDate);
+            ReservedClassroomRepo::addReservedClassroom($classroomID, $rentPeriodID, $rentDate);
+            session()->flash('success', '更新完成');
+        }else {
+            session()->flash('errors', '此時段已被預約');
+        }
         return redirect('/memdashboard');
     }
 }
