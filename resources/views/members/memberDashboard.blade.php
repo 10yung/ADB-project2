@@ -62,7 +62,7 @@
                     </thead>
                     <tbody>
 
-                    
+
 
                     @if(isset($totalRentRecords))
                         @foreach($totalRentRecords as $key => $totalRentRecord)
