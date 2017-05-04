@@ -38,11 +38,7 @@
 
         </form>
     </div>
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+
 
     <div class="col-xs-12 col-sm-12">
         <div class="panel panel-primary" style="margin-top: 30px;">
