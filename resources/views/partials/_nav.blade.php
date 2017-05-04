@@ -14,18 +14,23 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"> [帳號名稱]</a></li>
-                <li>
-                    <a href="{{ url('/backstage/logout') }}"
-                       onclick="event.preventDefault();
+                @if (Auth::check())
+                    <li><a href="/memdashboard"> {{ Auth::user()->name }}</a></li>
+                    <li>
+                        <a href="{{ url('/backstage/logout') }}"
+                           onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                        登出
-                    </a>
+                            登出
+                        </a>
 
-                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </li>
+                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                @else
+                    //show logged out navbar
+                @endif
+
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
