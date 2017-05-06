@@ -45,11 +45,15 @@ class RentRecordRepo
 
     public static function updateRentRecordbyDate() {
 
-        $mytime = Carbon\Carbon::now();
+        $datetime = Carbon\Carbon::now();
 
         DB::table('RentRecord')
-            ->where('Date', '<', $mytime)
+            ->where('Date', '<', $datetime)
             ->update(['status' => '已過期']);
+
+        DB::table('ReservedClassroom')
+            ->where('date', '<', $datetime)
+            ->delete();
 
         return true;
     }
