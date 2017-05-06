@@ -6,7 +6,6 @@ use App\Repository\ClassroomRepo;
 use App\Repository\ClassroomStatusRepo;
 use App\Repository\MemberRepo;
 use App\Repository\RentPeriodRepo;
-use App\Repository\ReservedClassroomRepo;
 use Illuminate\Support\Facades\Request;
 use App\Repository\RentRecordRepo;
 use Illuminate\Support\Facades\Auth;
@@ -48,11 +47,10 @@ class RentRecordController extends Controller
         $roomID = $request['rentRoomID'];
         $rentPeriodID = $request['rentPeriodID'];
 
-        $classroomReservedStatus = ReservedClassroomRepo::checkReservedClassroom($roomID, $rentPeriodID, $rentDate);
+        $classroomReservedStatus = RentRecordRepo::checkReservedClassroom($roomID, $rentPeriodID, $rentDate);
         if($classroomReservedStatus == 'AVAILABLE'){
 
             RentRecordRepo::createRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate);
-            ReservedClassroomRepo::addReservedClassroom($roomID, $rentPeriodID, $rentDate);
             session()->flash('success', '預約完成');
 
         }else {
@@ -85,7 +83,6 @@ class RentRecordController extends Controller
         $roomID = $request['rentRoomID'];
         $rentPeriodID = $request['rentPeriodID'];
 
-        ReservedClassroomRepo::deleteReservedClassroom($roomID, $rentPeriodID, $rentDate);
         RentRecordRepo::cancelReservation($member->memID, $roomID, $rentPeriodID, $rentDate);
 
         return redirect()->back();

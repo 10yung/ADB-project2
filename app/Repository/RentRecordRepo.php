@@ -15,7 +15,11 @@ class RentRecordRepo
 {
     public static function getRentRecordbymemID($memID){
         $rentrecord = DB::table('v_totalrentrecord')
-           ->select('Date', 'name', 'startTime', 'endTime', 'roomID', 'periodID', 'status')
+           ->select(
+               'Date', 'name', 'startTime',
+               'endTime', 'roomID', 'periodID',
+               'status'
+           )
             ->where('memID', '=', $memID)
             ->get()
             ->reverse();
@@ -84,6 +88,25 @@ class RentRecordRepo
             ->paginate(5);
 
         return $allrentrecord;
+    }
+
+    public static function checkReservedClassroom($roomID, $periodID, $date){
+
+        $date = Carbon::parse($date)->toDateString();
+        $reservedClassrooms = DB::table('RentRecord')
+            ->where('roomID', '=', $roomID)
+            ->where('periodID', '=', $periodID)
+            ->where('date', '=', $date)
+            ->where('status', '=', '預約中')
+            ->first();
+
+        $status = 'AVAILABLE';
+
+        if(!is_null($reservedClassrooms)){
+            $status = 'RESERVED';
+        }
+
+        return $status;
     }
 
 }
