@@ -81,7 +81,6 @@
                                 </form>
                                 @endif
                                 </td>
-
                             </tr>
                         @endforeach
                     @endif
@@ -89,6 +88,7 @@
 
                     </tbody>
                 </table>
+                {{ $totalRentRecords->links() }}
             </div>
         </div>
     </div>

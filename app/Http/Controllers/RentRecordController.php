@@ -24,7 +24,8 @@ class RentRecordController extends Controller
         $classroomList = ClassroomRepo::getAllClassroom();
         $periodList = RentPeriodRepo::getAllPeriod();
 
-        $totalRentRecords = RentRecordRepo::getRentRecordbymemID($member->memID);
+        $totalRentRecords = RentRecordRepo::getPaginateRentRecordbymemID($member->memID);
+
         return view('members.memberDashboard',  compact('totalRentRecords','classroomList', 'periodList'));
     }
 
@@ -32,9 +33,9 @@ class RentRecordController extends Controller
 
         $user = Auth::user();
         $admin = MemberRepo::getAdminByUserID($user->id);
-        $totalRentRecord = RentRecordRepo::getAllRentRecord();
+        $totalRentRecords = RentRecordRepo::getPaginateAllRentRecord();
 
-        return view('admin.adminDashboard',  compact('totalRentRecord', 'admin'));
+        return view('admin.adminDashboard',  compact('totalRentRecords', 'admin'));
     }
 
     public function create(){

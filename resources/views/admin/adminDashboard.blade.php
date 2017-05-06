@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach($totalRentRecord as $key => $totalRentRecord)
+                    @foreach($totalRentRecords as $key => $totalRentRecord)
                         <tr>
                             <td scope="row">{{ $key+1 }}</td>
                             @foreach ($totalRentRecord as $value)
@@ -41,6 +41,7 @@
 
                     </tbody>
                 </table>
+                {{ $totalRentRecords->links() }}
             </div>
         </div>
     </div>

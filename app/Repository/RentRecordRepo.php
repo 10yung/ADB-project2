@@ -62,4 +62,24 @@ class RentRecordRepo
 
         return $allrentrecord;
     }
+
+    public static function getPaginateAllRentRecord() {
+        $allrentrecord = DB::table('v_admintotalrentrecord')
+            ->select('memberName', 'Date', 'classroomName','startTime', 'endTime', 'status')
+            ->orderBy('Date')
+            ->paginate(5);
+
+        return $allrentrecord;
+    }
+
+    public static function getPaginateRentRecordbymemID($memID){
+        $allrentrecord = DB::table('v_totalrentrecord')
+            ->select('Date', 'name', 'startTime', 'endTime', 'roomID', 'periodID', 'status')
+            ->where('memID', '=', $memID)
+            ->orderBy('Date')
+            ->paginate(5);
+
+        return $allrentrecord;
+    }
+
 }
