@@ -13,5 +13,15 @@ class MemberRepo
         return $member;
     }
 
+    public static function deleteMemberByUserID($userID){
+        DB::table('Member')
+            ->where('userID', '=',$userID)
+            ->delete();
+
+        DB::table('User')
+            ->where('userID', '=',$userID)
+            ->delete();
+    }
+
 
 }
