@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repository\ClassroomRepo;
 use App\Repository\ClassroomStatusRepo;
 use App\Repository\MemberRepo;
+use App\Repository\AdminRepo;
 use App\Repository\RentPeriodRepo;
 use Illuminate\Support\Facades\Request;
 use App\Repository\RentRecordRepo;
@@ -31,7 +32,7 @@ class RentRecordController extends Controller
     public function adminShow(){
 
         $user = Auth::user();
-        $admin = MemberRepo::getAdminByUserID($user->id);
+        $admin = AdminRepo::getAdminByUserID($user->id);
         $totalRentRecords = RentRecordRepo::getPaginateAllRentRecord();
 
         return view('admin.adminDashboard',  compact('totalRentRecords', 'admin'));
