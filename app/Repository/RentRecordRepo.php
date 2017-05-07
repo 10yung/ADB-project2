@@ -36,7 +36,7 @@ class RentRecordRepo
 
         DB::table('RentRecord_history')
             ->insert(
-                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString(),'expired' => '未過期']
+                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
             );
     }
 
@@ -60,7 +60,7 @@ class RentRecordRepo
 
         DB::table('RentRecord_history')
             ->insert(
-                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '已取消','record_datetime' => Carbon::now()->toDateTimeString(),'expired' => '未過期']
+                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '已取消','record_datetime' => Carbon::now()->toDateTimeString()]
             );
     }
 
@@ -68,13 +68,25 @@ class RentRecordRepo
 
         $datetime = Carbon\Carbon::now();
 
-        DB::table('RentRecord')
+        $records = DB::table('RentRecord')
+            ->where('status','=','預約中')
             ->where('Date', '<', $datetime)
-            ->delete();
+            ->get();
 
-        DB::table('RentRecord_history')
+        DB::table('RentRecord')
+            ->where('status','=','預約中')
             ->where('Date', '<', $datetime)
-            ->update(['expired' => '已過期']);
+            ->update(['status' => '已過期']);
+
+
+        foreach ($records as $record){
+            DB::table('RentRecord_history')
+                ->insert(
+                    ['recordID' => $record->recordID,'roomID' => $record->roomID, 'Date' => $record->Date, 'periodID' => $record->periodID,'memID' => $record->memID, 'action' => '已過期','record_datetime' => Carbon::now()->toDateTimeString()]
+                );
+        }
+
+
 
         return true;
     }

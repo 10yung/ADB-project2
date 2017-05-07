@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.17-0ubuntu0.16.04.2)
 # Database: adb-project
-# Generation Time: 2017-05-07 04:38:29 +0000
+# Generation Time: 2017-05-07 06:38:54 +0000
 # ************************************************************
 
 
@@ -200,11 +200,9 @@ LOCK TABLES `RentRecord` WRITE;
 
 INSERT INTO `RentRecord` (`recordID`, `periodID`, `roomID`, `Date`, `memID`, `status`)
 VALUES
-	(95,1,1,'2017-05-10',1,'已取消'),
-	(96,1,1,'2017-05-10',1,'已取消'),
-	(97,2,1,'2017-05-10',1,'已取消'),
-	(98,1,1,'2017-05-10',1,'已取消'),
-	(99,1,1,'2017-05-17',1,'預約中');
+	(105,1,1,'2017-05-02',1,'已取消'),
+	(106,1,1,'2017-05-01',1,'已過期'),
+	(107,1,1,'2017-05-03',1,'已過期');
 
 /*!40000 ALTER TABLE `RentRecord` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -224,20 +222,19 @@ CREATE TABLE `RentRecord_history` (
   `Date` date NOT NULL,
   `record_datetime` datetime NOT NULL,
   `action` char(16) DEFAULT NULL,
-  `expired` char(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `RentRecord_history` WRITE;
 /*!40000 ALTER TABLE `RentRecord_history` DISABLE KEYS */;
 
-INSERT INTO `RentRecord_history` (`id`, `recordID`, `periodID`, `roomID`, `memID`, `Date`, `record_datetime`, `action`, `expired`)
+INSERT INTO `RentRecord_history` (`id`, `recordID`, `periodID`, `roomID`, `memID`, `Date`, `record_datetime`, `action`)
 VALUES
-	(1,101,1,1,1,'2017-05-02','2017-05-07 04:34:16','預約中','已過期'),
-	(2,100,1,1,1,'2017-05-01','2017-05-07 04:34:16','預約中','已過期'),
-	(3,97,2,1,1,'2017-05-10','2017-05-07 04:36:52','已取消','未過期'),
-	(4,102,1,1,1,'2017-05-03','2017-05-07 04:37:10','預約中','已過期'),
-	(5,102,1,1,1,'2017-05-03','2017-05-07 04:37:13','已取消','已過期');
+	(9,105,1,1,1,'2017-05-02','2017-05-07 06:36:16','預約中'),
+	(10,105,1,1,1,'2017-05-02','2017-05-07 06:36:31','已取消'),
+	(11,106,1,1,1,'2017-05-01','2017-05-07 06:36:43','預約中'),
+	(12,107,1,1,1,'2017-05-03','2017-05-07 06:37:39','預約中'),
+	(13,107,1,1,1,'2017-05-03','2017-05-07 06:38:00','已過期');
 
 /*!40000 ALTER TABLE `RentRecord_history` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -304,8 +301,8 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `name`, `account`, `password`, `userType`, `remember_token`, `created_at`, `updated_at`)
 VALUES
-	(1,'admin','admin','$2y$10$uGLNWLQNXk//u4rpZgfFX.Vcmf2uCUk76CHnY0UNfxEfUBFjfGavS','Admin','ZZ7pBVMkGL3qb3wPA4jVFd8niFxsbFQce8gQntlwGkvo10lwQECIjlP9naZ1',NULL,NULL),
-	(2,'member','member','$2y$10$VE/AcUxsJ/92mfT.X6Ll/e51t3XBpq0/hdIIzUzb0fceykSCFok7W','Member','oi2oKQgnTvpiyraPB9BzuHx9FwY4qnRamMagayffBb8j8JRrsIVENCanUKYn',NULL,NULL);
+	(1,'admin','admin','$2y$10$uGLNWLQNXk//u4rpZgfFX.Vcmf2uCUk76CHnY0UNfxEfUBFjfGavS','Admin','tRavV2F8kFmbrbAWRkyRgtP6k0WYaUfYvJheoU3DXEf1vZGaZEhDVTKW9Ou2',NULL,NULL),
+	(2,'member','member','$2y$10$VE/AcUxsJ/92mfT.X6Ll/e51t3XBpq0/hdIIzUzb0fceykSCFok7W','Member','0M9aVlU4CZz6qolsxGia7vY2KlwreNd2d1xBFtgDb9ssCikvoatPJyv2ZqT1',NULL,NULL);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
