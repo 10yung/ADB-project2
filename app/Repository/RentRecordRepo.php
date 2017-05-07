@@ -29,15 +29,37 @@ class RentRecordRepo
 
     public static function createRentRecordbymemID($memID, $roomID, $periodID, $date) {
         $date = Carbon::parse($date)->toDateString();
-        $recordID = DB::table('RentRecord')
-            ->insertGetId(
-                ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
-            );
+        $status = '';
 
-        DB::table('RentRecord_history')
-            ->insert(
-                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
-            );
+        DB::transaction(function () use ($memID, $roomID, $periodID, $date, &$status) {
+
+            $reservedClassrooms = DB::table('RentRecord')
+                ->where('roomID', '=', $roomID)
+                ->where('periodID', '=', $periodID)
+                ->where('date', '=', $date)
+                ->where('status', '=', '預約中')
+                ->sharedLock()
+                ->first();
+
+            if(!is_null($reservedClassrooms)){
+                $status = 'FAIL';
+                return;
+            }
+
+            $recordID = DB::table('RentRecord')
+                ->lockForUpdate()
+                ->insertGetId(
+                    ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+                );
+
+            DB::table('RentRecord_history')
+                ->insert(
+                    ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
+                );
+
+            $status = 'SUCCESS';
+        });
+        return $status;
     }
 
     public static function cancelReservation($memID, $roomID, $periodID, $date){
@@ -82,13 +104,16 @@ class RentRecordRepo
         foreach ($records as $record){
             DB::table('RentRecord_history')
                 ->insert(
-                    ['recordID' => $record->recordID,'roomID' => $record->roomID, 'Date' => $record->Date, 'periodID' => $record->periodID,'memID' => $record->memID, 'action' => '已過期','record_datetime' => Carbon::now()->toDateTimeString()]
+                    ['recordID' => $record->recordID,
+                        'roomID' => $record->roomID,
+                        'Date' => $record->Date,
+                        'periodID' => $record->periodID,
+                        'memID' => $record->memID,
+                        'action' => '已過期',
+                        'record_datetime' => Carbon::now()->toDateTimeString()]
                 );
         }
 
-
-
-        return true;
     }
 
     public static function getAllRentRecord() {
@@ -137,5 +162,6 @@ class RentRecordRepo
 
         return $status;
     }
+
 
 }

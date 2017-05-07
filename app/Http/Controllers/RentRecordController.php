@@ -48,12 +48,10 @@ class RentRecordController extends Controller
         $roomID = $request['rentRoomID'];
         $rentPeriodID = $request['rentPeriodID'];
 
-        $classroomReservedStatus = RentRecordRepo::checkReservedClassroom($roomID, $rentPeriodID, $rentDate);
-        if($classroomReservedStatus == 'AVAILABLE'){
+        $classroomReservedStatus = RentRecordRepo::createRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate);
 
-            RentRecordRepo::createRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate);
+        if($classroomReservedStatus == 'SUCCESS'){
             session()->flash('success', '預約完成');
-
         }else {
             session()->flash('errors', '此時段已被預約');
         }
