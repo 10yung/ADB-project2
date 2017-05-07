@@ -29,9 +29,14 @@ class RentRecordRepo
 
     public static function createRentRecordbymemID($memID, $roomID, $periodID, $date) {
         $date = Carbon::parse($date)->toDateString();
-        DB::table('RentRecord')
-            ->insert(
+        $recordID = DB::table('RentRecord')
+            ->insertGetId(
                 ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+            );
+
+        DB::table('RentRecord_history')
+            ->insert(
+                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString(),'expired' => '未過期']
             );
     }
 
@@ -45,6 +50,18 @@ class RentRecordRepo
             ->update(
                 ['status' => '已取消']
             );
+
+        $recordID = DB::table('RentRecord')
+            ->where('memID', '=', $memID)
+            ->where('roomID', '=', $roomID)
+            ->where('periodID', '=', $periodID)
+            ->where('date', '=', $date)
+            ->value('recordID');
+
+        DB::table('RentRecord_history')
+            ->insert(
+                ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '已取消','record_datetime' => Carbon::now()->toDateTimeString(),'expired' => '未過期']
+            );
     }
 
     public static function updateRentRecordbyDate() {
@@ -53,11 +70,11 @@ class RentRecordRepo
 
         DB::table('RentRecord')
             ->where('Date', '<', $datetime)
-            ->update(['status' => '已過期']);
-
-        DB::table('ReservedClassroom')
-            ->where('date', '<', $datetime)
             ->delete();
+
+        DB::table('RentRecord_history')
+            ->where('Date', '<', $datetime)
+            ->update(['expired' => '已過期']);
 
         return true;
     }
