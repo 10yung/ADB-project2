@@ -31,14 +31,14 @@ class RentRecordRepo
         $date = Carbon::parse($date)->toDateString();
         $status = '';
 
-        DB::transaction(function () use ($memID, $roomID, $periodID, $date, &$status) {
 
+        DB::transaction(function() use ($memID, $roomID, $periodID, $date, &$status){
             $reservedClassrooms = DB::table('RentRecord')
                 ->where('roomID', '=', $roomID)
                 ->where('periodID', '=', $periodID)
                 ->where('date', '=', $date)
                 ->where('status', '=', '預約中')
-                ->sharedLock()
+                ->lockForUpdate()
                 ->first();
 
             if(!is_null($reservedClassrooms)){
@@ -47,7 +47,6 @@ class RentRecordRepo
             }
 
             $recordID = DB::table('RentRecord')
-                ->lockForUpdate()
                 ->insertGetId(
                     ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
                 );
@@ -59,6 +58,8 @@ class RentRecordRepo
 
             $status = 'SUCCESS';
         });
+
+
         return $status;
     }
 
@@ -162,6 +163,85 @@ class RentRecordRepo
 
         return $status;
     }
+
+    public static function testSharedLockRentRecordbymemID($memID, $roomID, $periodID, $date, $sleep) {
+        $date = Carbon::parse($date)->toDateString();
+        $status = '';
+
+
+        DB::transaction(function() use ($memID, $roomID, $periodID, $date, &$status, $sleep){
+            $reservedClassrooms = DB::table('RentRecord')
+                ->where('roomID', '=', $roomID)
+                ->where('periodID', '=', $periodID)
+                ->where('date', '=', $date)
+                ->where('status', '=', '預約中')
+                ->sharedLock()
+                ->first();
+
+            if($sleep == 'on'){
+                sleep(10);
+            }
+
+
+
+            if(!is_null($reservedClassrooms)){
+                $status = 'FAIL';
+                return;
+            }
+
+            $recordID = DB::table('RentRecord')
+                ->insertGetId(
+                    ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+                );
+
+            DB::table('RentRecord_history')
+                ->insert(
+                    ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
+                );
+
+            $status = 'SUCCESS';
+        });
+
+
+        return $status;
+    }
+
+    public static function testNoTransactionAndLockRentRecordbymemID($memID, $roomID, $periodID, $date,$sleep) {
+        $date = Carbon::parse($date)->toDateString();
+        $status = '';
+
+            $reservedClassrooms = DB::table('RentRecord')
+                ->where('roomID', '=', $roomID)
+                ->where('periodID', '=', $periodID)
+                ->where('date', '=', $date)
+                ->where('status', '=', '預約中')
+                ->first();
+
+            if($sleep == 'on'){
+                sleep(10);
+            }
+
+
+
+            if(!is_null($reservedClassrooms)){
+                $status = 'FAIL';
+                return;
+            }
+
+            $recordID = DB::table('RentRecord')
+                ->insertGetId(
+                    ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+                );
+
+            DB::table('RentRecord_history')
+                ->insert(
+                    ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
+                );
+
+            $status = 'SUCCESS';
+        return $status;
+    }
+
 
 
 }

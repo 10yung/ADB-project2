@@ -26,6 +26,9 @@ Route::group(['middleware' => ['member-auth']], function () {
     Route::get('/memdashboard', 'RentRecordController@show');
     Route::post('/memdashboard/create', 'RentRecordController@create');
     Route::post('/memdashboard/cancel', 'RentRecordController@cancelReservation');
+    Route::post('/memdashboard/testSharedLockTransaction', 'RentRecordController@testSharedLockTransaction');
+    Route::post('/memdashboard/testNoTransactionAndLock', 'RentRecordController@testNoTransactionAndLock');
+
 });
 
 Route::group(['middleware' => ['admin-auth']], function () {

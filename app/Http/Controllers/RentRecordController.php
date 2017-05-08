@@ -88,5 +88,57 @@ class RentRecordController extends Controller
 
     }
 
+    public function testSharedLockTransaction(){
+        $request = Request::all();
+
+        $user = Auth::user();
+        $member = MemberRepo::getMemberByUserID($user->id);
+
+        $rentDate = $request['rentDate'];
+        $roomID = $request['rentRoomID'];
+        $rentPeriodID = $request['rentPeriodID'];
+        if(array_key_exists("sleep",$request)){
+            $sleep = $request['sleep'];
+        }else {
+            $sleep = 'off';
+        }
+
+
+        $classroomReservedStatus = RentRecordRepo::testSharedLockRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate, $sleep);
+
+        if($classroomReservedStatus == 'SUCCESS'){
+            session()->flash('success', '預約完成');
+        }else {
+            session()->flash('errors', '此時段已被預約');
+        }
+        return redirect('/memdashboard');
+    }
+
+    public function testNoTransactionAndLock(){
+        $request = Request::all();
+
+        $user = Auth::user();
+        $member = MemberRepo::getMemberByUserID($user->id);
+
+        $rentDate = $request['rentDate'];
+        $roomID = $request['rentRoomID'];
+        $rentPeriodID = $request['rentPeriodID'];
+        if(array_key_exists("sleep",$request)){
+            $sleep = $request['sleep'];
+        }else {
+            $sleep = 'off';
+        }
+
+
+
+        $classroomReservedStatus = RentRecordRepo::testNoTransactionAndLockRentRecordbymemID($member->memID, $roomID, $rentPeriodID, $rentDate, $sleep);
+
+        if($classroomReservedStatus == 'SUCCESS'){
+            session()->flash('success', '預約完成');
+        }else {
+            session()->flash('errors', '此時段已被預約');
+        }
+        return redirect('/memdashboard');
+    }
 
 }

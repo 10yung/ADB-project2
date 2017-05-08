@@ -37,6 +37,81 @@
             </div>
 
         </form>
+        <div id='testTransactionAndLock' >
+            <h4 style="margin-top: 60px">Test No transaction And Lock</h4>
+            <form class="form-inline" method="POST" action="{{ url('/memdashboard/testNoTransactionAndLock') }}" >
+                {{ csrf_field() }}
+                <div class="form-group col-sm-12">
+                    <label><input type="checkbox" name="sleep" value="on">Sleep</label>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="exampleInputName2">教室編號：</label>
+                    <select class="form-control" id="sel1" name="rentRoomID"> 
+                        @foreach($classroomList as $classroom)
+                            <option value="{{ $classroom->roomID }}">{{ $classroom->name }}</option>
+                        @endforeach
+                    </select> 
+                </div>
+
+                <div class="form-group col-sm-5">
+                    <label for="exampleInputName2">日期：</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" name="rentDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label for="exampleInputName2">節：</label>
+                    <select class="form-control" id="sel1" name="rentPeriodID"> 
+                        @foreach($periodList as $period)
+                            <option value="{{ $period->periodID }}">{{ $period->startTime }} ~ {{ $period->endTime }}</option>
+                        @endforeach
+                    </select> 
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+
+            </form>
+            <h4 style="margin-top: 60px">Test Transaction With Shared Lock</h4>
+            <form class="form-inline" method="POST" action="{{ url('/memdashboard/testSharedLockTransaction') }}" >
+                {{ csrf_field() }}
+                <div class="form-group col-sm-12">
+                    <label><input type="checkbox" name="sleep" value="on">Sleep</label>
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="exampleInputName2">教室編號：</label>
+                    <select class="form-control" id="sel1" name="rentRoomID"> 
+                        @foreach($classroomList as $classroom)
+                            <option value="{{ $classroom->roomID }}">{{ $classroom->name }}</option>
+                        @endforeach
+                    </select> 
+                </div>
+
+                <div class="form-group col-sm-5">
+                    <label for="exampleInputName2">日期：</label>
+                    <div class="input-group date">
+                        <input type="text" class="form-control" name="rentDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <label for="exampleInputName2">節：</label>
+                    <select class="form-control" id="sel1" name="rentPeriodID"> 
+                        @foreach($periodList as $period)
+                            <option value="{{ $period->periodID }}">{{ $period->startTime }} ~ {{ $period->endTime }}</option>
+                        @endforeach
+                    </select> 
+                </div>
+
+                <div class="form-group col-sm-2">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
     </div>
 
 
