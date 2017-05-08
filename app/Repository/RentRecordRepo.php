@@ -10,6 +10,7 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 use Carbon;
+use JavaScript;
 
 class RentRecordRepo
 {
@@ -143,6 +144,10 @@ class RentRecordRepo
             ->orderBy('Date')
             ->paginate(5);
 
+        JavaScript::put([
+            'foo' => 'bar',
+            'age' => 29
+        ]);
 
         return $allrentrecord;
     }

@@ -92,11 +92,10 @@
             </div>
         </div>
     </div>
+    @include ('partials._javascirpt-var-footer')
     <script>
         $('.input-group.date').datepicker({
         });
-        $('#datetimepicker').datetimepicker({
-            format: 'DD/MM/YYYY'
-        });
+
     </script>
 @endsection

@@ -177,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // enable transform php to javascript
+        'Laracasts\Utilities\JavaScript\JavaScriptServiceProvider',
     ],
 
     /*
