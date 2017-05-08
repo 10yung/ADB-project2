@@ -18,7 +18,6 @@ class RentRecordController extends Controller
 {
     //
     public function show(){
-        DB::enableQueryLog();
 
         $user = Auth::user();
         $member = MemberRepo::getMemberByUserID($user->id);
@@ -32,7 +31,6 @@ class RentRecordController extends Controller
     }
 
     public function adminShow(){
-        DB::enableQueryLog();
 
         $user = Auth::user();
         $admin = AdminRepo::getAdminByUserID($user->id);
@@ -42,8 +40,6 @@ class RentRecordController extends Controller
     }
 
     public function create(){
-        DB::enableQueryLog();
-
         $request = Request::all();
 
         $user = Auth::user();
@@ -77,8 +73,6 @@ class RentRecordController extends Controller
         return redirect('/admindashboard');
     }
     public function cancelReservation(){
-        DB::enableQueryLog();
-
         $request = Request::all();
 
         $user = Auth::user();
