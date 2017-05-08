@@ -32,12 +32,15 @@ class RentRecordController extends Controller
             'showQueryLog' => DB::getQueryLog()
         ]);
 
+
+
         return view('members.memberDashboard',  compact('totalRentRecords','classroomList', 'periodList'));
     }
 
     public function adminShow(){
 
         $user = Auth::user();
+        $members = MemberRepo::getAllMembers();
         $admin = AdminRepo::getAdminByUserID($user->id);
         $totalRentRecords = RentRecordRepo::getPaginateAllRentRecord();
 
@@ -45,7 +48,7 @@ class RentRecordController extends Controller
             'adminshowQueryLog' => DB::getQueryLog()
         ]);
 
-        return view('admin.adminDashboard',  compact('totalRentRecords', 'admin'));
+        return view('admin.adminDashboard',  compact('totalRentRecords', 'admin', 'members'));
     }
 
     public function create(){
@@ -89,7 +92,6 @@ class RentRecordController extends Controller
 
         $user = Auth::user();
         $member = MemberRepo::getMemberByUserID($user->id);
-
 
         $rentDate = $request['rentDate'];
         $roomID = $request['rentRoomID'];

@@ -48,7 +48,7 @@ class RentRecordRepo
             }
 
             $recordID = DB::table('RentRecord')
-                ->lockForUpdate()
+                ->LockforUpdate()
                 ->insertGetId(
                     ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
                 );
@@ -61,7 +61,7 @@ class RentRecordRepo
             $status = 'SUCCESS';
         });
         return $status;
-        
+
     }
 
     public static function cancelReservation($memID, $roomID, $periodID, $date){

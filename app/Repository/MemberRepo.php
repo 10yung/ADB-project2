@@ -15,14 +15,23 @@ class MemberRepo
         return $member;
     }
 
+    public static function getAllMembers(){
+        $members = DB::table('Member')
+            ->get();
+        return $members;
+    }
+
     public static function deleteMemberByUserID($userID){
         DB::table('Member')
             ->where('userID', '=',$userID)
             ->delete();
 
-        DB::table('User')
-            ->where('userID', '=',$userID)
+
+        DB::table('Users')
+            ->where('id', '=',$userID)
             ->delete();
+
+        return true;
     }
 
 
