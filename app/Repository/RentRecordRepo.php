@@ -46,6 +46,8 @@ class RentRecordRepo
                 return;
             }
 
+            sleep(20);
+
             $recordID = DB::table('RentRecord')
                 ->lockForUpdate()
                 ->insertGetId(
@@ -140,6 +142,7 @@ class RentRecordRepo
             ->where('memID', '=', $memID)
             ->orderBy('Date')
             ->paginate(5);
+
 
         return $allrentrecord;
     }

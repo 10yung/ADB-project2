@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin-auth' => \App\Http\Middleware\AdminAuth::class,
         'member-auth' => \App\Http\Middleware\MemberAuth::class,
+        'enable-querylog' => \App\Http\Middleware\BeforeAnyDbQueryMiddleware::class,
     ];
 }
