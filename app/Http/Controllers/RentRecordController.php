@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Request;
 use App\Repository\RentRecordRepo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use JavaScript;
 
 
 
@@ -27,6 +28,10 @@ class RentRecordController extends Controller
 
         $totalRentRecords = RentRecordRepo::getPaginateRentRecordbymemID($member->memID);
 
+        JavaScript::put([
+            'showQueryLog' => DB::getQueryLog()
+        ]);
+
         return view('members.memberDashboard',  compact('totalRentRecords','classroomList', 'periodList'));
     }
 
@@ -35,6 +40,10 @@ class RentRecordController extends Controller
         $user = Auth::user();
         $admin = AdminRepo::getAdminByUserID($user->id);
         $totalRentRecords = RentRecordRepo::getPaginateAllRentRecord();
+
+        JavaScript::put([
+            'adminshowQueryLog' => DB::getQueryLog()
+        ]);
 
         return view('admin.adminDashboard',  compact('totalRentRecords', 'admin'));
     }
@@ -56,6 +65,8 @@ class RentRecordController extends Controller
         }else {
             session()->flash('errors', '此時段已被預約');
         }
+
+
         return redirect('/memdashboard');
     }
 
@@ -69,6 +80,7 @@ class RentRecordController extends Controller
         } else {
             session()->flash('errors', '錯誤發生');
         }
+
 
         return redirect('/admindashboard');
     }

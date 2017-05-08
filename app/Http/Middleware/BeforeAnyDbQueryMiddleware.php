@@ -20,4 +20,5 @@ class BeforeAnyDbQueryMiddleware
 
         return $next($request);
     }
+
 }

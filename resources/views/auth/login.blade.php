@@ -30,4 +30,5 @@
             </div>
         </div>
     </div>
+    @include ('partials._javascirpt-var-footer')
 @endsection

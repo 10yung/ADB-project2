@@ -10,7 +10,7 @@ namespace App\Repository;
 
 use Illuminate\Support\Facades\DB;
 use Carbon;
-use JavaScript;
+
 
 class RentRecordRepo
 {
@@ -47,8 +47,6 @@ class RentRecordRepo
                 return;
             }
 
-            sleep(20);
-
             $recordID = DB::table('RentRecord')
                 ->lockForUpdate()
                 ->insertGetId(
@@ -63,6 +61,7 @@ class RentRecordRepo
             $status = 'SUCCESS';
         });
         return $status;
+        
     }
 
     public static function cancelReservation($memID, $roomID, $periodID, $date){
@@ -143,11 +142,6 @@ class RentRecordRepo
             ->where('memID', '=', $memID)
             ->orderBy('Date')
             ->paginate(5);
-
-        JavaScript::put([
-            'foo' => 'bar',
-            'age' => 29
-        ]);
 
         return $allrentrecord;
     }

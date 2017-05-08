@@ -45,11 +45,15 @@
             </div>
         </div>
     </div>
+
+    @include ('partials._javascirpt-var-footer')
+
     <script>
         $('.input-group.date').datepicker({
         });
-        $('#datetimepicker').datetimepicker({
-            format: 'DD/MM/YYYY'
-        });
+
+        console.log('Controller-adminShow-querylog:');
+        console.log(adminshowQueryLog);
+
     </script>
 @endsection

@@ -33,7 +33,7 @@
             </div>
 
             <div class="form-group col-sm-2">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success" onclick="console.log(createQueryLog);">Submit</button>
             </div>
 
         </form>
@@ -96,6 +96,9 @@
     <script>
         $('.input-group.date').datepicker({
         });
+
+        console.log('ControllerShow-querylog:');
+        console.log(showQueryLog);
 
     </script>
 @endsection
