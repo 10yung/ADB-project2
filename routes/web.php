@@ -16,12 +16,6 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-
-
-
-
-
-
 Route::group(['middleware' => ['member-auth', 'enable-querylog']], function () {
     Route::get('/memdashboard', 'RentRecordController@show');
     Route::post('/memdashboard/create', 'RentRecordController@create');
