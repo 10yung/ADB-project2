@@ -25,6 +25,7 @@ Route::group(['middleware' => ['member-auth', 'enable-querylog']], function () {
 Route::group(['middleware' => ['admin-auth', 'enable-querylog']], function () {
     Route::get('/admindashboard', 'RentRecordController@adminShow');
     Route::post('/admindashboard/updaterentrecord', 'RentRecordController@updateRentRecordbyDate');
+    Route::post('/admindashboard/createmember', 'MemberController@createMember');
     Route::post('/admindashboard/deletemember', 'MemberController@deleteMemberByID');
 });
 

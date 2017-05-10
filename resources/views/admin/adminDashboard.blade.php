@@ -2,6 +2,33 @@
 
 @section('content')
     @include('partials._flashMessages')
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">新增使用者</div>
+            <div class="panel-body">
+                <form method="POST" action="{{ url('/admindashboard/createmember') }}" >
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label>使用者名稱</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label>密碼：</label>
+                        <input type="password" class="form-control password" name="password">
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input id="showHide" type="checkbox">顯示密碼
+                        </label>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <button type="submit" class="btn btn-success" >新增</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div class="col-xs-12 col-sm-6">
         <div class="panel panel-danger">
@@ -25,7 +52,8 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-6 text-center">
+
+    <div class="col-xs-12 col-sm-12 text-center">
         <form class="form-inline" method="POST" action="{{ url('/admindashboard/updaterentrecord') }}" >
             {{ csrf_field() }}
             <div class="form-group">
@@ -76,8 +104,17 @@
         $('.input-group.date').datepicker({
         });
 
-        console.log('Controller-adminShow-querylog:');
-        console.log(adminshowQueryLog);
+
+        $(document).ready(function() {
+            $("#showHide").click(function() {
+                if ($(".password").attr("type") == "password") {
+                    $(".password").attr("type", "text");
+
+                } else {
+                    $(".password").attr("type", "password");
+                }
+            });
+        });
 
     </script>
 @endsection

@@ -34,5 +34,16 @@ class MemberRepo
         return true;
     }
 
+    public static function createMember($name, $password){
+
+        $id = DB::table('Users')
+                ->insertGetId(['name' => $name, 'account' => $name,'password' => $password, 'userType' => 'Member']);
+
+        DB::table('Member')
+            ->insert(['name' => $name, 'position' => 'student', 'userID' => $id]);
+
+        return true;
+    }
+
 
 }
