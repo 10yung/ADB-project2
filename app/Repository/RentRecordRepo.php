@@ -27,12 +27,11 @@ class RentRecordRepo
         return $rentrecord;
     }
 
-    public static function createRentRecordbymemID($memID, $roomID, $periodID, $date) {
+    public static function createRentRecordbymemID($memID, $roomID, $periodID, $date,$sleep) {
         $date = Carbon::parse($date)->toDateString();
         $status = '';
 
-
-        DB::transaction(function() use ($memID, $roomID, $periodID, $date, &$status){
+        DB::transaction(function() use ($memID, $roomID, $periodID, $date, &$status, $sleep){
             $reservedClassrooms = DB::table('RentRecord')
                 ->where('roomID', '=', $roomID)
                 ->where('periodID', '=', $periodID)
@@ -41,6 +40,11 @@ class RentRecordRepo
                 ->lockForUpdate()
                 ->first();
 
+            if($sleep == 'on'){
+                sleep(10);
+            }
+
+
             if(!is_null($reservedClassrooms)){
                 $status = 'FAIL';
                 return;
@@ -48,12 +52,17 @@ class RentRecordRepo
 
             $recordID = DB::table('RentRecord')
                 ->insertGetId(
-                    ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+                    ['roomID' => $roomID, 'Date' => $date,
+                        'periodID' => $periodID,'memID' => $memID,
+                        'status' => '預約中']
                 );
 
             DB::table('RentRecord_history')
                 ->insert(
-                    ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
+                    ['recordID' => $recordID,'roomID' => $roomID,
+                        'Date' => $date, 'periodID' => $periodID,
+                        'memID' => $memID, 'action' => '預約中',
+                        'record_datetime' => Carbon::now()->toDateTimeString()]
                 );
 
             $status = 'SUCCESS';
@@ -182,8 +191,6 @@ class RentRecordRepo
                 sleep(10);
             }
 
-
-
             if(!is_null($reservedClassrooms)){
                 $status = 'FAIL';
                 return;
@@ -191,12 +198,17 @@ class RentRecordRepo
 
             $recordID = DB::table('RentRecord')
                 ->insertGetId(
-                    ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+                    ['roomID' => $roomID, 'Date' => $date,
+                        'periodID' => $periodID,'memID' => $memID,
+                        'status' => '預約中']
                 );
 
             DB::table('RentRecord_history')
                 ->insert(
-                    ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
+                    ['recordID' => $recordID,'roomID' => $roomID,
+                        'Date' => $date, 'periodID' => $periodID,
+                        'memID' => $memID, 'action' => '預約中',
+                        'record_datetime' => Carbon::now()->toDateTimeString()]
                 );
 
             $status = 'SUCCESS';
@@ -230,18 +242,22 @@ class RentRecordRepo
 
             $recordID = DB::table('RentRecord')
                 ->insertGetId(
-                    ['roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'status' => '預約中']
+                    ['roomID' => $roomID, 'Date' => $date,
+                        'periodID' => $periodID,'memID' => $memID,
+                        'status' => '預約中']
                 );
 
             DB::table('RentRecord_history')
                 ->insert(
-                    ['recordID' => $recordID,'roomID' => $roomID, 'Date' => $date, 'periodID' => $periodID,'memID' => $memID, 'action' => '預約中','record_datetime' => Carbon::now()->toDateTimeString()]
+                    ['recordID' => $recordID,'roomID' => $roomID,
+                        'Date' => $date, 'periodID' => $periodID,
+                        'memID' => $memID, 'action' => '預約中',
+                        'record_datetime' => Carbon::now()->toDateTimeString()]
                 );
 
             $status = 'SUCCESS';
         return $status;
     }
-
 
 
 }

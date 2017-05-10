@@ -7,6 +7,9 @@
 
         <form class="form-inline" method="POST" action="{{ url('/memdashboard/create') }}" >
             {{ csrf_field() }}
+            <div class="form-group col-sm-12">
+                <label><input type="checkbox" name="sleep" value="on">Sleep</label>
+            </div>
             <div class="form-group col-sm-3">
                 <label for="exampleInputName2">教室編號：</label>
                 <select class="form-control" id="sel1" name="rentRoomID"> 
