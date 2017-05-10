@@ -78,7 +78,7 @@ class RentRecordController extends Controller
 
         $updated = RentRecordRepo::updateRentRecordbyDate();
 
-        if ($updated) {
+        if (!$updated) {
             session()->flash('success', '更新完成');
         } else {
             session()->flash('errors', '錯誤發生');
