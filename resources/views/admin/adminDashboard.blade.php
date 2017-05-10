@@ -38,31 +38,33 @@
         <div class="panel panel-primary">
             <div class="panel-heading">所有租借記錄</div>
             <div class="panel-body">
-                <table class="table table-bordered table-striped table-responsive table-hover">
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>租借人</th>
-                        <th>日期</th>
-                        <th>教室編號</th>
-                        <th>起始時間</th>
-                        <th>結束時間</th>
-                        <th>狀態</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    @foreach($totalRentRecords as $key => $totalRentRecord)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-responsive table-hover">
+                        <thead>
                         <tr>
-                            <td scope="row">{{ $key+1 }}</td>
-                            @foreach ($totalRentRecord as $value)
-                                <td>{{ $value }}</td>
-                            @endforeach
+                            <th></th>
+                            <th>租借人</th>
+                            <th>日期</th>
+                            <th>教室編號</th>
+                            <th>起始時間</th>
+                            <th>結束時間</th>
+                            <th>狀態</th>
                         </tr>
-                    @endforeach
+                        </thead>
+                        <tbody>
 
-                    </tbody>
-                </table>
+                        @foreach($totalRentRecords as $key => $totalRentRecord)
+                            <tr>
+                                <td scope="row">{{ $key+1 }}</td>
+                                @foreach ($totalRentRecord as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
                 {{ $totalRentRecords->links() }}
             </div>
         </div>
