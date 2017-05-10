@@ -27,7 +27,7 @@ class MemberRepo
             ->delete();
 
 
-        DB::table('Users')
+        DB::table('users')
             ->where('id', '=',$userID)
             ->delete();
 
@@ -36,7 +36,7 @@ class MemberRepo
 
     public static function createMember($name, $password){
 
-        $id = DB::table('Users')
+        $id = DB::table('users')
                 ->insertGetId(['name' => $name, 'account' => $name,'password' => $password, 'userType' => 'Member']);
 
         DB::table('Member')
